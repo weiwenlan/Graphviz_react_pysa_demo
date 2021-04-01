@@ -1,0 +1,37 @@
+digraph G{
+edge[arrowtail=none,style=tapered,penwidth=4,arrowhead=none,dir=forward,color="#a3d2ca"];
+node [style="filled", fillcolor="white"];
+"test_texttable"[shape="rectangle", fillcolor="#ffd56b"];
+"README"[shape="oval", fillcolor="#ffb26b"];
+"example"[shape="rectangle", fillcolor="#ff7b54"];
+"setup"[shape="rectangle", fillcolor="#ff7b54"];
+"texttable"[shape="rectangle", fillcolor="#ffd56b"];
+node [style="filled", shape="box", color="#dfe0df", bgcolor="#dfe0df"];
+ "python-texttable";
+"python-texttable" -> "python-texttable..git" [color="#dfe0de"];
+"python-texttable..git" -> "python-texttable..git.logs" [color="#dfe0de"];
+"python-texttable..git.logs" -> "python-texttable..git.logs.refs" [color="#dfe0de"];
+"python-texttable..git.logs.refs" -> "python-texttable..git.logs.refs.remotes" [color="#dfe0de"];
+"python-texttable..git.logs.refs.remotes" -> "python-texttable..git.logs.refs.remotes.origin" [color="#dfe0de"];
+"python-texttable..git.logs.refs" -> "python-texttable..git.logs.refs.heads" [color="#dfe0de"];
+"python-texttable..git" -> "python-texttable..git.info" [color="#dfe0de"];
+"python-texttable..git" -> "python-texttable..git.branches" [color="#dfe0de"];
+"python-texttable..git" -> "python-texttable..git.refs" [color="#dfe0de"];
+"python-texttable..git.refs" -> "python-texttable..git.refs.remotes" [color="#dfe0de"];
+"python-texttable..git.refs.remotes" -> "python-texttable..git.refs.remotes.origin" [color="#dfe0de"];
+"python-texttable..git.refs" -> "python-texttable..git.refs.tags" [color="#dfe0de"];
+"python-texttable..git.refs" -> "python-texttable..git.refs.heads" [color="#dfe0de"];
+"python-texttable..git" -> "python-texttable..git.hooks" [color="#dfe0de"];
+"python-texttable..git" -> "python-texttable..git.objects" [color="#dfe0de"];
+"python-texttable..git.objects" -> "python-texttable..git.objects.pack" [color="#dfe0de"];
+"python-texttable..git.objects" -> "python-texttable..git.objects.info" [color="#dfe0de"];
+"python-texttable" -> "test_texttable" [color="#dfe0df"];
+"python-texttable" -> "README" [color="#dfe0df"];
+"python-texttable" -> "example" [color="#dfe0df"];
+"python-texttable" -> "setup" [color="#dfe0df"];
+"python-texttable" -> "texttable" [color="#dfe0df"];
+"texttable" -> "test_texttable" ;
+"texttable" -> "README" ;
+"texttable" -> "example" ;
+"python-texttable" -> "python-texttable" [color="#1687a7",penwidth=8];
+}
