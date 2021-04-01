@@ -7,6 +7,8 @@ import ExampleSelector from './ExampleSelector';
 import UpdateArea from './UpdateArea';
 import HttpUtil from '../HttpUtil';
 import { message } from 'antd';
+import debounce from "lodash/debounce";
+import 'antd/dist/antd.css';
 
 
 const Container = styled.div`
@@ -37,14 +39,12 @@ export const GraphInput = ({ initialDot = '', onUpdate }: GraphInputProps) => {
   const [dot, setDot] = useState(initialDot);
   const [autoUpdate, setAutoUpdate] = useState(false);
   const [error, setError] = useState('');
-  const [info, setInfo] = useState('');
 
   const updateDot = (newDot: string, updateGraph: boolean = true) => {
+   
     setDot(newDot);
-    console.log('dot1: ', dot)
+    message.info('Loading..., and it will disappear in 5 seconds', 5);
 
-    console.log('newDot: ', newDot)
-    console.log('message')
     HttpUtil.post("http://10.110.165.184:5001/api/codeGraph", newDot)
             .then(
                 re=>{
@@ -53,28 +53,27 @@ export const GraphInput = ({ initialDot = '', onUpdate }: GraphInputProps) => {
                   setLink(re.data);
                   console.log('setlinks: ', link);
                 });
-
-    console.log('dot3: ', dot)   
-    console.log('links: ', link)  
-    message.info('loading...')
-
+ 
     if (updateGraph) {
       try {
         read(link);
         onUpdate(link);
-
+        setError(``);
       } catch (err) {
         setError(`Parse Error: ${err.message}`);
       }
     }
   };
 
+  const handleSumit = debounce( e => {
+    updateDot(e)
+    }, 5000);
+
   return (
     <Container>
       <InputArea
         dot={dot}
         error={error}
-        info={info}
         onChange={(newDot) => updateDot(newDot, autoUpdate)}
         submit={() => updateDot(dot, true)}
       />
@@ -83,7 +82,7 @@ export const GraphInput = ({ initialDot = '', onUpdate }: GraphInputProps) => {
         onChange={(example) => updateDot(example)}
       />
       <UpdateArea
-        update={() => updateDot(dot)}
+        update={() => handleSumit(dot)}
         setAutoUpdate={(shouldAutoUpdate) => setAutoUpdate(shouldAutoUpdate)}
       />
     </Container>

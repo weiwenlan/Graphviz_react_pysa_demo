@@ -12,7 +12,7 @@ import {
   Title,
 } from './components';
 import { themes } from './themes';
-// import Iframe from 'react-iframe';
+import logo from './img/example.png';
 
 
 const { innerWidth, innerHeight } = window;
@@ -46,8 +46,9 @@ const App = () => {
   return (
     <>
     <ThemePicker themes={Object.keys(themes)}>
-      <Title>Graphviz-React</Title>
+      <Title>Code Flow</Title>
       <Grid>
+        <img src={logo} alt="logo" style={{marginLeft: '10px'}}></img>
         <TabbedContainer labels={['Input', 'Settings']}>
           <GraphInput initialDot={dot} onUpdate={(newDot) => setDot(newDot)} />
           <OptionsSelector
