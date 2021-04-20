@@ -12,45 +12,46 @@ import {
   Title,
 } from './components';
 import { themes } from './themes';
-import logo from './img/example.png';
+import logo from './img/example_2.png';
 
-
-const { innerWidth, innerHeight } = window;
 
 const defaults: Options<GraphvizOptions> = {
-  height: Math.floor(innerHeight * 0.7),
-  width: Math.floor(innerWidth * 0.75),
-  scale: 1,
-  tweenPrecision: 1,
+  fileNum: 20,
   engine: 'dot',
-  keyMode: 'title',
-  convertEqualSidedPolygons: false,
-  fade: false,
-  growEnteringEdges: false,
-  fit: true,
-  tweenPaths: false,
-  tweenShapes: false,
-  useWorker: false,
-  zoom: false,
+  func: 'multi',
+  folderCalls: false,
+  noEdges: false,
+  cluster: false,
+  community: false,
 };
 
 const allowedValues = {
-  engine: ['circo', 'dot', 'fdp', 'neato', 'osage', 'patchwork', 'twopi'],
-  keyMode: ['title', 'id', 'tag-index', 'index'],
+  engine: ['dot', 'twopie'],
+  func: ['allFile', 'module', 'multi', 'files'],
 };
 
 const App = () => {
   const [dot, setDot] = useState('https://github.com/bufordtaylor/python-texttable');
   const [graphOptions, setGraphOptions] = useState(defaults);
 
+  const onUpdate = (newDot:string) => {
+    console.log('1111111')
+    setDot(newDot)
+
+  }
+
   return (
     <>
     <ThemePicker themes={Object.keys(themes)}>
       <Title>Code Flow</Title>
       <Grid>
-        <img src={logo} alt="logo" style={{marginLeft: '10px'}}></img>
+        <iframe title='test_frame' src="http://10.110.165.184:8080/back-end/demo.html" width='100%' height='100%'></iframe>
+
+        <div>
+        <img src={logo} alt="logo" style={{marginLeft: '10px', height:'700px', width: '460px', padding: '5px'}}></img>
         <TabbedContainer labels={['Input', 'Settings']}>
-          <GraphInput initialDot={dot} onUpdate={(newDot) => setDot(newDot)} />
+
+          <GraphInput initialDot={dot} options={graphOptions} onUpdate={onUpdate}/>
           <OptionsSelector
             options={graphOptions}
             onChange={(name, value) =>
@@ -59,14 +60,14 @@ const App = () => {
             allowedValues={allowedValues}
           />
         </TabbedContainer>
+        </div>
+       
         {/* <Graphviz dot={dot} options={graphOptions} /> */}
-        
         {/* <iframe id="testIframe" title="testIframe" src="/hello.html" height="100%" width="100%"></iframe> */}
 
       </Grid>
       
     </ThemePicker>
-    <iframe title='test_frame' src="http://10.110.165.184:8080/back-end/demo.html" width={window.innerWidth} height={window.innerHeight}></iframe>
     </>
   );
 };

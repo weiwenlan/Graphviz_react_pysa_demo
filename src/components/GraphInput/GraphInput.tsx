@@ -22,30 +22,34 @@ const Container = styled.div`
   }
 `;
 
-const success = () => {
-  message
-    .loading('Action in progress..', 2.5)
-    .then(() => message.success('Loading finished', 2.5))
-    .then(() => message.info('Loading finished is finished', 2.5));
-};
 
 export interface GraphInputProps {
-  initialDot?: string;
+  initialDot: string;
+  options: { [key: string]: string | number | boolean };
   onUpdate: (dot: string) => void;
 }
 
-export const GraphInput = ({ initialDot = '', onUpdate }: GraphInputProps) => {
+export const GraphInput = ({ initialDot, options, onUpdate}: GraphInputProps) => {
+
   const [link, setLink] = useState('');
-  const [dot, setDot] = useState(initialDot);
+  // const [dot, setDot] = useState(initialDot);
   const [autoUpdate, setAutoUpdate] = useState(false);
   const [error, setError] = useState('');
 
-  const updateDot = (newDot: string, updateGraph: boolean = true) => {
-   
-    setDot(newDot);
-    message.info('Loading..., and it will disappear in 5 seconds', 5);
+  console.log('test11111: ', options)
 
-    HttpUtil.post("http://10.110.165.184:5001/api/codeGraph", newDot)
+  const updateDot = (newDot: string, updateGraph: boolean = true) => {
+
+    // setDot(newDot);
+    onUpdate(newDot)
+    console.log('dot1234: ', newDot)
+
+    const data = {newDot,options}
+    console.log('test22222: ', data)
+
+    message.info('Action in progress...', 5);
+
+    HttpUtil.post("http://10.110.165.184:5001/api/codeGraph", data)
             .then(
                 re=>{
                   console.log("返回结果222：",re);
@@ -60,29 +64,29 @@ export const GraphInput = ({ initialDot = '', onUpdate }: GraphInputProps) => {
         onUpdate(link);
         setError(``);
       } catch (err) {
-        setError(`Parse Error: ${err.message}`);
+        // setError(`Parse Error: ${err.message}`);
       }
     }
   };
 
   const handleSumit = debounce( e => {
     updateDot(e)
-    }, 5000);
+    }, 3000);
 
   return (
     <Container>
       <InputArea
-        dot={dot}
+        dot={initialDot}
         error={error}
-        onChange={(newDot) => updateDot(newDot, autoUpdate)}
-        submit={() => updateDot(dot, true)}
+        onMyChange={(newDot) => updateDot(newDot, autoUpdate)}
+        submit={() => updateDot(initialDot, true)}
       />
       <ExampleSelector
         examples={examples}
         onChange={(example) => updateDot(example)}
       />
       <UpdateArea
-        update={() => handleSumit(dot)}
+        update={() => handleSumit(initialDot)}
         setAutoUpdate={(shouldAutoUpdate) => setAutoUpdate(shouldAutoUpdate)}
       />
     </Container>

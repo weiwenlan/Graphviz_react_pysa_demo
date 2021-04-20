@@ -29,20 +29,20 @@ const InputArea = ({
   dot,
   error = '',
   info = '',
-  onChange,
+  onMyChange,
   submit,
 }: {
   dot: string;
   error?: string;
   info?: string;
-  onChange: (dot: string) => void;
+  onMyChange: (dot: string) => void;
   submit: () => void;
 }) => (
   <>
     <TextArea
       rows={2}
       value={dot}
-      onChange={(event) => onChange(event.target.value)}
+      onChange={(event) => onMyChange(event.target.value)}
       onKeyDown={(event) => {
         if (event.ctrlKey && event.keyCode === 13) {
           submit();

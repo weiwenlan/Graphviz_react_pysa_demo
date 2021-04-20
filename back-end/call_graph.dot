@@ -1,0 +1,38 @@
+digraph G{
+concentrate="True"
+fontsize=15;
+style = "bold";
+rankdir="TB";
+fontname=Arial;
+nodesep=0.5;
+
+        overlap=False;
+ranksep=2;
+concentrate=False;
+ordering=out;
+
+        splines=polyline;
+rank="max";
+edge[arrowtail=none,style=tapered,penwidth=6,arrowhead=none,dir=forward,color="#a3d2ca"];
+node [style="filled", fillcolor="white"];
+node [style="filled", shape="folder", color="#dfe0df", bgcolor="#dfe0df"];
+ "yolov5";
+node [style="filled", shape="folder", color="#dfe0df", bgcolor="#dfe0df"];
+ "yolov5.utils.wandb_logging";
+node [style="filled", shape="folder", color="#dfe0df", bgcolor="#dfe0df"];
+ "yolov5.models";
+node [style="filled", shape="folder", color="#dfe0df", bgcolor="#dfe0df"];
+ "yolov5.weights";
+node [style="filled", shape="folder", color="#dfe0df", bgcolor="#dfe0df"];
+ "yolov5.utils";
+"yolov5.utils.wandb_logging" -> "yolov5.utils.wandb_logging" [penwidth=1color = "#dfe0df"];
+"yolov5.utils.wandb_logging" -> "yolov5" [penwidth=1color = "#dfe0df"];
+"yolov5.utils" -> "yolov5.utils.wandb_logging" [penwidth=3color = "#dfe0df"];
+"yolov5.utils" -> "yolov5.utils" [penwidth=3color = "#dfe0df"];
+"yolov5.utils" -> "yolov5.models" [penwidth=3color = "#dfe0df"];
+"yolov5.utils" -> "yolov5.weights" [penwidth=1color = "#dfe0df"];
+"yolov5.utils" -> "yolov5" [penwidth=4color = "#dfe0df"];
+"yolov5.models" -> "yolov5.models" [penwidth=4color = "#dfe0df"];
+"yolov5.models" -> "yolov5" [penwidth=5color = "#dfe0df"];
+"yolov5" -> "yolov5" [penwidth=1color = "#dfe0df"];
+}

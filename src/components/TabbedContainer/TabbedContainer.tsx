@@ -9,6 +9,7 @@ const { backgroundColor } = getThemeProperties(path);
 const Container = styled.div`
   background-color: ${backgroundColor};
   border: 2px solid black;
+  padding: 10px;
 `;
 
 const Item = styled.div`
